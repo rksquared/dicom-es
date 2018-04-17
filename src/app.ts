@@ -8,7 +8,7 @@ const port = 5005;
 
 app.get('/', (req, res) => {
   console.log('inbound request @ GET "/" enpoint');
-  dcm.parse('./data/1.dcm');
+  dcm.parse(__dirname + '../assets/dicom_291.dcm');
   es.ping();
   res.send('recieving requests at "/"');
 });

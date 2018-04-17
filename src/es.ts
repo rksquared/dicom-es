@@ -17,6 +17,7 @@ export function saveDoc(doc: Object) {
   const dt = new Date();
   const id = dt.getTime();
   request.put(ESURL + '/' + INDEXNAME + '/dcm/' + id, {
+    headers: {"Content-Type": "application/json"},
     body: JSON.stringify(doc) 
   }).then((res) => {
     console.log(res);
