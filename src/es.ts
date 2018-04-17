@@ -9,6 +9,21 @@ export function ping() {
   })
 }
 
+export function search(term: string) {
+  return request.get(ESURL + '/' + INDEXNAME + '/_search?q=' + term)
+    .then((rc) => {
+      console.log(rc);
+      const res = JSON.parse(rc);
+      const hits = res['hits']['total'];
+      if (hits > 0) {
+        return res['hits']['hits'].map((data) => {
+          return data['_source'];
+        })
+      }
+      return [];
+    })
+}
+
 export function deleteIndex() {
   request.delete(ESURL + '/' + INDEXNAME);
 }

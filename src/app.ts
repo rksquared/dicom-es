@@ -13,6 +13,14 @@ app.get('/', (req, res) => {
   res.send('recieving requests at "/"');
 });
 
+app.get('/search', (req, res) => {
+  es.search(req.query.q).then((rc) => {
+    res.send(rc);
+  }).catch((err) => {
+    res.send('ERROR'); 
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 })
