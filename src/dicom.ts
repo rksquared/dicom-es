@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as parser from 'dicom-parser';
+import * as es from './es';
 
 export function parse(fileName: string) {
   const data = fs.readFileSync(fileName);
@@ -14,8 +15,9 @@ export function parse(fileName: string) {
   const meta = {
     sopInstanceUID: dataset.string('x0020000d'),
     patientId:  dataset.string('x00100020'),
-    studyDate:  dataset.string('x00080020')
+    studyDate:  dataset.string('x00080020'),
+    filePath: fileName
   }
   console.log(meta);
-
+  es.saveDoc(meta);
 }

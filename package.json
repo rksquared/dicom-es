@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "indexEs": "node dist/indexDocs.js ./data",
+    "deleteEs": "node dist/deleteIndex.js",
     "build": "tsc -w",
     "start": "nodemon dist/app.js"
   },
