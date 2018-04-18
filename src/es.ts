@@ -10,7 +10,11 @@ export function ping() {
 }
 
 export function search(term: string) {
-  return request.get(ESURL + '/' + INDEXNAME + '/_search?q=' + term)
+  let searchURI = '/_search?q=' + term; 
+  if (term === '') {
+    searchURI = '/_search?';
+  }
+  return request.get(ESURL + '/' + INDEXNAME + searchURI)
     .then((rc) => {
       console.log(rc);
       const res = JSON.parse(rc);
