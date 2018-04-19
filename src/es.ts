@@ -10,7 +10,7 @@ export function ping() {
 }
 
 export function search(term: string) {
-  let searchURI = '/_search?q=' + term; 
+  let searchURI = '/_search?size=1000&q=' + term; 
   if (term === '') {
     searchURI = '/_search?size=1000';
   }
