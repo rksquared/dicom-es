@@ -28,7 +28,7 @@ export function parse(fileName: string) {
     console.log(meta);
     es.saveDoc(meta);
   } catch (err) {
-    return;
+    return 'err';
   }
   
 }

@@ -12,7 +12,7 @@ export function ping() {
 export function search(term: string) {
   let searchURI = '/_search?q=' + term; 
   if (term === '') {
-    searchURI = '/_search?';
+    searchURI = '/_search?size=1000';
   }
   return request.get(ESURL + '/' + INDEXNAME + searchURI)
     .then((rc) => {

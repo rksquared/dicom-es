@@ -27,6 +27,7 @@ app.get('/search', (req, res) => {
   console.log(`recieving inbound search request, searching for: ${req.query.q}`)
 
   es.search(req.query.q).then((rc) => {
+    console.log('results in search then', rc);
     res.send(JSON.stringify(rc));
   }).catch((err) => {
     res.send(err); 
