@@ -7,7 +7,7 @@ const dir = process.argv[2];
 console.log('Indexing: ', dir);
 
 
-const traverseDir = (curIndexing) => {
+const traverseDir = (curIndexing: string) => {
   let curType = fs.statSync(curIndexing);
 
   if (curType.isFile()) {
