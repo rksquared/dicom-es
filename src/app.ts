@@ -34,6 +34,14 @@ app.get('/search', (req, res) => {
   });
 });
 
+app.get('/scan', (req, res) => {
+  console.log('recieving inbound GET request for scan @ filepath: ', req.query.q);
+  const scanData = dcm.parseImage(req.query.q);
+  // res.write(scanData, 'binary');
+
+  res.end(new Buffer(scanData), 'binary');
+});
+
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 })
