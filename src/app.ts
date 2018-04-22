@@ -9,6 +9,8 @@ const zip = require('express-zip');
 
 const app = express();
 
+app.use(express.static(`${__dirname}/../client/build`));
+
 const port = 5005 || process.env.PORT;
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,13 +24,13 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/', (req, res) => {
-  console.log('inbound request @ GET "/" enpoint');
-  //make sure to check that the asset exists in your local copy of this repo!
-  dcm.parse(__dirname + '/../assets/000001.dcm');
-  es.ping();
-  res.send('recieving requests at "/"');
-});
+// app.get('/', (req, res) => {
+//   console.log('inbound request @ GET "/" enpoint');
+//   //make sure to check that the asset exists in your local copy of this repo!
+//   dcm.parse(__dirname + '/../assets/000001.dcm');
+//   es.ping();
+//   res.send('recieving requests at "/"');
+// });
 
 app.get('/search', (req, res) => {
   console.log(`recieving inbound search request, searching for: ${req.query.q}`)
@@ -50,12 +52,11 @@ app.get('/scan', (req, res) => {
 });
 
 app.post('/files', (req, res) => {
-  res.zip([
-    { path: '/Users/rksquared/projects/hrnyc14/immersive/solo_wk/dicom-es/assets/01.dcm', name: '01.dcm' }
-  ]);
+  res.zip( req.body.filePaths.map((filePath) => {
+    return { path: path.join(__dirname + '/../', filePath), name: path.basename(filePath) };
+  }));
   // res.end(fs.readFileSync('/Users/rksquared/projects/hrnyc14/immersive/solo_wk/dicom-es/assets/iTerm2-Color-Schemes-master.zip'), 'binary');
-})
-
+});
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
