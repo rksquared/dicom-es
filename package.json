@@ -15,8 +15,10 @@
     "@types/node": "^9.6.5",
     "@types/request": "^2.47.0",
     "@types/request-promise-native": "^1.0.14",
+    "body-parser": "^1.18.2",
     "dicom-parser": "^1.7.6",
     "express": "^4.16.3",
+    "express-zip": "^2.0.1",
     "nodemon": "^1.17.3",
     "request": "^2.85.0",
     "request-promise-native": "^1.0.5"

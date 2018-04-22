@@ -1,17 +1,24 @@
 import * as express from 'express';
+import * as stream from 'stream';
+import * as bodyParser from 'body-parser';
+import * as fs from 'fs';
+import * as path from 'path';
 import * as dcm from './dicom';
 import * as es from './es';
+const zip = require('express-zip');
 
 const app = express();
 
-const port = 5005;
+const port = 5005 || process.env.PORT;
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 
 //use standard CORS headers
 app.use((req, res, next) => {
   res.header(`Access-Control-Allow-Origin`, `*`);
-  res.header(`Access-Control-Allow-Headers`, `Origin, X-Requested-With`);
-  // res.header(`Content-Type`, `Accept`);
+  res.header(`Access-Control-Allow-Headers`, `Origin, X-Requested-With, Content-Type, Accept`);
   next();
 });
 
@@ -41,6 +48,14 @@ app.get('/scan', (req, res) => {
 
   res.end(new Buffer(scanData), 'binary');
 });
+
+app.post('/files', (req, res) => {
+  res.zip([
+    { path: '/Users/rksquared/projects/hrnyc14/immersive/solo_wk/dicom-es/assets/01.dcm', name: '01.dcm' }
+  ]);
+  // res.end(fs.readFileSync('/Users/rksquared/projects/hrnyc14/immersive/solo_wk/dicom-es/assets/iTerm2-Color-Schemes-master.zip'), 'binary');
+})
+
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);

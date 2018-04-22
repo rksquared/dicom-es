@@ -16,7 +16,7 @@ export function search(term: string) {
   }
   return request.get(ESURL + '/' + INDEXNAME + searchURI)
     .then((rc) => {
-      console.log(rc);
+      // console.log(rc);
       const res = JSON.parse(rc);
       const hits = res['hits']['total'];
       if (hits > 0) {

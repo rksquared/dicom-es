@@ -38,9 +38,8 @@ export function parseImage(fileName: string) {
 
   const data = fs.readFileSync(fileName);
 
-  return data;
-
-  // try {
+  try {
+    return data;
   //   const dataset = parser.parseDicom(data);
   //   const pixelDataEl = dataset.elements.x7fe00010;
 
@@ -63,7 +62,7 @@ export function parseImage(fileName: string) {
   
 
   //   return pixelDataBuffer;
-  // } catch (err) {
-  //   return 'err';
-  // }
+  } catch (err) {
+    return new Buffer (err);
+  }
 }
